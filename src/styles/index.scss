@@ -1,0 +1,301 @@
+@import "./variables.scss";
+@import "./mixin.scss";
+@import "./transition.scss";
+@import "./element-ui.scss";
+@import "./sidebar.scss";
+
+body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+        Microsoft YaHei, Arial, sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+div:focus {
+    outline: none;
+}
+
+a:focus,
+a:active {
+    outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+
+.clearfix {
+    &:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
+}
+
+//main-container全局样式
+.app-main {
+    min-height: 100%;
+    margin-top: 90px;
+}
+
+.app-container {
+    padding: 5px;
+}
+
+//搜索栏样式
+.filter-container {}
+
+//操作栏样式
+.operate-container {
+    margin-top: 20px;
+}
+
+.operate-container .btn-add {
+    float: right;
+}
+
+//表格栏样式
+.table-container {
+    margin-top: 20px;
+}
+
+//批量操作栏样式
+.batch-operate-container {
+    display: inline-block;
+    margin-top: 20px;
+}
+
+//分页栏样式
+.pagination-container {
+    display: inline-block;
+    float: right;
+    margin-top: 20px;
+}
+
+//添加、更新表单样式
+.form-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 720px;
+    padding: 35px 35px 15px 35px;
+    margin: 100px auto;
+}
+
+//主标题
+.font-extra-large {
+    font-size: 20px;
+    color: #303133;
+}
+
+//标题
+.font-title-large {
+    font-size: 18px;
+    color: #303133;
+}
+
+//小标题
+.font-title-medium {
+    font-size: 16px;
+    color: #303133;
+}
+
+//正文
+.font-medium {
+    font-size: 16px;
+    color: #606266;
+}
+
+//正文
+.font-small {
+    font-size: 14px;
+    color: #606266;
+}
+
+//正文（小）
+.font-extra-small {
+    font-size: 13px;
+    color: #606266;
+}
+
+.color-main {
+    color: #409eff;
+}
+
+.color-success {
+    color: #67c23a;
+}
+
+.color-warning {
+    color: #e6a23c;
+}
+
+.color-danger {
+    color: #f56c6c;
+}
+
+.color-info {
+    color: #909399;
+}
+
+.headertitle {
+    height: 25px;
+    background: #dde0e6;
+}
+
+/* 页面控件布局和样式 */
+.page-controlstyle {
+    overflow: hidden;
+    margin-top: 10px;
+    margin-left: 35px;
+}
+
+.page-controlstyle .order_line,
+.page-controlstyle .el-radio {
+    overflow: hidden;
+    margin: 5px 5px 0px 0px;
+    float: left;
+}
+
+.el-dialog--small {
+    height: 80%;
+}
+
+/* .page-controlstyle .order_linedef {
+  margin-bottom: 10px;
+  width: 200px;
+  display: inline-block;
+}
+
+.page-controlstyle .order_linedef .el-input__inner {
+  height: 30px;
+}
+
+.page-controlstyle .order_linedef .el-input,
+.page-controlstyle .order_linedef .el-textarea__inner {
+  width: 100%;
+}
+
+.page-controlstyle .order_linedef .el-textarea {
+  width: initial;
+} */
+
+.page-controlstyle .el-input--small {
+    width: 100%;
+}
+
+.page-controlstyle .el-input--small .el-input__inner {
+    width: 100%;
+    height: 31px;
+    font-size: 12px;
+}
+
+/* 弹出框底部样式，按钮靠右*/
+.dialog-footer {
+    float: right;
+    padding-top: 10px;
+}
+
+.dialog-footer-seckill {
+    padding-top: 10px;
+}
+
+.page-controlstyle .el-date-editor.el-input {
+    float: left;
+    width: 200px;
+}
+
+.controlspan,
+.page-controlstyle .el-checkbox {
+    font-size: 13px;
+    display: inline-block;
+    color: #48576a;
+    float: left;
+    width: 75px;
+    height: 28px;
+    line-height: 28px;
+}
+
+.page-controlstyle .el-checkbox {
+    width: 206px;
+    height: 28px;
+    margin-right: 40px;
+}
+
+.page-controlstyle .el-checkbox__label {
+    font-size: 13px;
+}
+
+.page-controlstyle .el-checkbox.is-bordered {
+    padding: 0;
+    border-radius: 0;
+    width: 208px;
+    margin-right: 40px;
+}
+
+.page-controlstyle .el-radio__label {
+    font-size: 13px;
+    padding-left: 2px;
+}
+
+.el-tree .el-tree-node__label {
+    font-size: 12px;
+}
+
+.el-tree .el-tree-node__content {
+    height: 34px;
+}
+
+#app .menulist {
+    z-index: inherit;
+    height: calc(100vh - 95px);
+    background-color: inherit;
+    border: 1px solid #dfe6ec;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#app .menulist .el-menu-item {
+    height: 36px;
+    line-height: 36px;
+    font-size: 12px;
+    font-weight: inherit;
+}
+
+.el-input.is-disabled .el-input__inner {
+    color: #000000;
+}
+
+#app .menulistmodal {
+    z-index: inherit;
+    height: 600px;
+    background-color: inherit;
+    border: 1px solid #dfe6ec;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#app .menulistmodal .el-menu-item {
+    height: 36px;
+    line-height: 36px;
+    font-size: 12px;
+    font-weight: inherit;
+}

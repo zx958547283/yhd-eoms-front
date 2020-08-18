@@ -1,0 +1,172 @@
+<template>
+  <div class="app-container">
+    <cqueryview :pk="params[0]" @query="doQuery"></cqueryview>
+    <el-container>
+      <el-aside v-show="false" width="200px">
+        <el-tree :data="companyTree" :props="{label:'name',children:'listChild'}" @node-click="doQuery" class="menulist" default-expand-all highlight-current node-key="id" ref="refCompany"></el-tree>
+      </el-aside>
+      <el-container>
+        <el-header style="height:30px;">
+          <el-button-group>
+            <!-- <el-button @click="btnqueryShow()" size="mini" type="primary">查询</el-button> -->
+            <el-button @click="showAdd()" size="mini" type="primary" v-show="btnpower('btnadd')">新增</el-button>
+            <el-button @click="showEdit()" size="mini" type="primary" v-show="btnpower('btnedit')">编辑</el-button>
+            <el-button @click="doDelete()" size="mini" type="primary" v-show="btnpower('btndelete')">删除</el-button>
+            <el-button @click="dataLoad()" size="mini" type="primary">刷新</el-button>
+            <el-button @click="gotoPoint()" size="mini" type="primary">病症对应穴位</el-button>
+            <!-- <el-button @click="doExport()" size="mini" type="primary" v-show="btnpower('btntoexcel')">导出</el-button> -->
+          </el-button-group>
+          <!-- <cinputquery @query="doQuery()" placeholder="名称" v-model="queryvalue"></cinputquery> -->
+        </el-header>
+        <cquery :exp="btnpower('btntoexcel')" :pk="params[0]" @query="doQuery" v-model="queryvisible"></cquery>
+        <el-main>
+          <ctable :data="tabledata" :pagenum="pagenum" @pagechange="dataLoad" @row-dblclick="showEdit" @selection-change="tableSelect"></ctable>
+        </el-main>
+      </el-container>
+    </el-container>
+    <cwindow :title="wintitle" v-model="winvisible">
+      <div class="page-controlstyle">
+        <cinput :required="true" title="病症名称" v-model="mm.name"></cinput>
+        <cinput :required="true" title="病症说明" v-model="mm.content" :length="2"></cinput>
+        <cnumber :required="true" title="排序" v-model="mm.sort"></cnumber>
+      </div>
+      <div class="dialog-footer">
+        <el-button @click="winvisible=false" size="mini">取消</el-button>
+        <el-button @click="doSave" size="mini" type="primary">提交</el-button>
+      </div>
+    </cwindow>
+
+    
+  </div>
+</template>
+<script>
+import u from "../../utils/utility";
+import mady from "../../api/mady";
+import ums from "../../api/ums";
+import e from "../../utils/excel";
+
+export default {
+  data() {
+    return {
+      selectrows: [],                    //表格选中的对象
+      parentId: 1,                       //树形选择的对象
+      refCityId: 'cityId',                //区域联动城市属性
+      refProvinceId: 'provinceId,',       //城市联动省份属性
+      parentOrgId: '',        //当前树形选中的节点
+      wintitle: "机构编辑",    //编辑窗口标题
+      winvisible: false,      //编辑窗口是否显示
+      queryvisible: false,    //查询弹出窗
+      mm: {},                 //编辑对象
+      tabledata: {},          //表格数据
+      params: [],             //页面参数
+      pagenum: 1,             //当前页
+      queryvalue: "",         //查询条件值
+      querylist: [],          //查询条件模板
+      companyTree: [],         //公司树形
+      address: [],
+      employee:[],
+      
+    }
+  },
+  mounted() {
+    this.params = u.getpageparmas(this);
+    //初始化查询，默认第一页
+     this.doQuery([]);
+  },
+  filters: {
+    formatTag(value) {
+      console.log('tag  ===============   ' + value)
+      return value;
+    }
+  },
+  methods: {
+    btnqueryShow: function () {
+      this.queryvisible = !this.queryvisible;
+    },
+    doQuery(querylist) {
+      if (querylist === undefined) {
+        if (u.isnullorwhitespace(this.queryvalue)) {
+          u.messagenotify(this, "请输入查询内容");
+          return;
+        } else {
+          this.querylist = [];
+          if (u.isnum(this.queryvalue)) {
+          }
+          else {
+            u.addwheres(this, "and", "(", "ums_member.nickname", "like", this.queryvalue, "");
+            u.addwheres(this, "or", "", "ums_member.province", "like", this.queryvalue, "");
+            // u.addwheres(this, "or", "", "ums_member.company_id", "like", this.queryvalue, "");
+            u.addwheres(this, "or", "", "ums_member.area", "like", this.queryvalue, "");
+            u.addwheres(this, "or", "", "ums_member.city", "like", this.queryvalue, ")");
+          }
+        }
+      } else {
+        this.querylist = querylist;
+      }
+      //查询条件
+      this.dataLoad(1);
+    },
+    dataLoad(num) {
+      if (num) {
+        this.pagenum = num;
+      }
+      u.querypage(this, this.params[0]);
+    },
+    showAdd() {
+      this.mm = {};
+      this.mm.gender = "1";
+      this.winvisible = true;
+    },
+    showEdit(row) {
+      let that = this;
+      
+      u.openeditmodel(this, mady.getMalady, row).then(res => {
+        this.address = [res.province, res.city, res.area];
+        let tags = res.member_tag.replace("tag1&&","").replace("tag2&&","").replace("tag3&&","")
+        this.mm.member_tag = tags
+      });
+    },
+    doDelete() {
+      let that = this;
+      u.deleteoperate(this, mady.deleteMalady).then(res => {
+        u.getCompanyTree(that, "companyTree");
+      });
+    },
+    doExport() {
+      u.queryAll(this.params[0], this.querylist).then(res => {
+        e.exportxlsx(res);
+      });
+    },
+    tableSelect(rows) {
+      this.selectrows = rows;
+    },
+    doSave() {
+      this.mm.province = this.address[0];
+      this.mm.city = this.address[1];
+      this.mm.area = this.address[2];
+      this.mm.nickname = this.mm.real_name;
+      this.mm.organization_id = "1";
+
+      u.doSave(this, mady.saveMalady).then(res => {
+        //加载公司树形
+        
+      });
+    },
+    gotoPoint() {
+      if(this.selectrows.length == 0) {
+        this.$message.error('请先勾选一个用户');
+        return;
+      }
+      if(this.selectrows.length > 1) {
+        this.$message.error('只能同时选择一个用户来查看');
+        return;
+      }
+      u.addtagview(this, this.selectrows[0].病症名称, "maladyPoints", '3fd47371-9cef-4fce-9cae-fd6505a83123' + ',' + this.selectrows[0].pk);
+    }
+
+  }
+}
+</script>
+<style></style>
+
+
