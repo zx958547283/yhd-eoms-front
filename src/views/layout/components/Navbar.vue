@@ -1,7 +1,7 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger :isActive="sidebar.opened" :toggleClick="toggleSideBar" class="hamburger-container"></hamburger>
-    <span class="headertitle">元化点运维管理平台</span>
+<!--    <span class="headertitle">元化点运维管理平台</span>-->
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <img :onerror="default_head" :src="avatar?avatar:default_head" class="user-avatar" />
@@ -14,9 +14,9 @@
         <el-dropdown-item divided>
           <span @click="showModifyPass()" style="display:block;">修改密码</span>
         </el-dropdown-item>
-        <el-dropdown-item divided>
-          <span @click="showCompany()" style="display:block;">切换公司</span>
-        </el-dropdown-item>
+<!--        <el-dropdown-item divided>-->
+<!--          <span @click="showCompany()" style="display:block;">切换公司</span>-->
+<!--        </el-dropdown-item>-->
         <el-dropdown-item divided>
           <span @click="btnclear()" style="display:block;">清除缓存</span>
         </el-dropdown-item>
@@ -85,7 +85,7 @@ export default {
       querylist: [],
       companyShow: false,
       dialogModifyPass: false,
-      default_head: "static/images/default_head.jpg"
+      default_head: "static/images/yhd.svg"
     };
   },
   methods: {
@@ -113,7 +113,7 @@ export default {
         let end = location.href.indexOf("?");
         if (location.href.indexOf("?") >= 0) {
           location.href = location.href.substring(0, end);
-		 
+
         } else {
 		window.localStorage.clear()
           location.reload();
@@ -143,12 +143,14 @@ export default {
         type: "warning"
       })
         .then(() => {
-          for (let i = 0; i < window.localStorage.length; i++) {
-            if (window.localStorage.key(i) !== "user") {
-              console.log("清除缓存" + localStorage.key(i));
-              window.localStorage.removeItem(localStorage.key(i));
-            }
-          }
+
+          window.localStorage.clear();
+          // for (let i = 0; i < window.localStorage.length; i++) {
+          //   if (window.localStorage.key(i) !== "user") {
+          //     console.log("清除缓存" + localStorage.key(i));
+          //     window.localStorage.removeItem(localStorage.key(i));
+          //   }
+          // }
         })
         .catch(e => { });
     }

@@ -3,10 +3,11 @@
     <span class="qb_logo"></span>
     <el-card class="login-form-layout">
       <el-form :model="loginForm" :rules="loginRules" auto-complete="on" label-position="left" ref="loginForm">
-        <!-- <div style="text-align: center">
-          <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>
-        </div> -->
-        <h2 class="login-title color-main">元化点运维管理平台</h2>
+        <div style="text-align: center">
+<!--          <svg-icon icon-class="login-mall" style="width: 56px;height: 56px;color: #409EFF"></svg-icon>-->
+          <el-image src="favicon.ico" style="width: 25%"></el-image>
+        </div>
+<!--        <h2 class="login-title color-main">昇晟元化管理平台</h2>-->
         <el-form-item prop="username">
           <el-input auto-complete="on" name="username" placeholder="请输入用户名" type="text" v-model="loginForm.username">
           </el-input>

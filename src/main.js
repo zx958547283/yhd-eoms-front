@@ -40,6 +40,8 @@ import ImageControl from "./components/Common/ImageControl";
 import VideoControl from "./components/Common/VideoControl";
 import RadioControl from "./components/Common/RadioControl";
 import TagsControl from "./components/Common/TagsControl";
+import BookTimeControl from "./components/Common/BookTimeControl";
+import BookControl from "./components/Common/BookControl";
 Vue.component("cquery", QueryControl);
 Vue.component("cqueryview", QueryView);
 Vue.component("ctable", TableControl);
@@ -65,6 +67,8 @@ Vue.component("cimage", ImageControl);
 Vue.component("cvideo", VideoControl);
 Vue.component("cradio", RadioControl);
 Vue.component("ctags", TagsControl);
+Vue.component("bookTime", BookTimeControl);
+Vue.component("booking", BookControl);
 
 
 Vue.use(ElementUI, {

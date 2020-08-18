@@ -62,7 +62,7 @@
       </div>
     </cwindow>
     <cwindow title="创建微信公众号菜单" v-model="popCreateMPMenu">
-      <div class="page-controlstyle" style="    height: 800px;overflow: auto;">
+      <div class="page-controlstyle" style="height: 300px;overflow: auto;">
         <cselect :required="true" pk="wxmenu_level" title="菜单级别" v-model="menu.menu_level"></cselect>
         <cselect :required="true" querypk="4bb97a14-ad0e-4b68-83d4-65d078dc463f" title="父菜单" v-model="menu.parent_id" v-show="menu.menu_level == '2'"></cselect>
         <cinput :required="true" title="菜单名称" v-model="menu.name"></cinput>
@@ -162,7 +162,7 @@
         </div>
         <cinput :required="true" title="跳转地址" v-model="msgData.url"></cinput>
         <cdate :required="true" placeholder="请选择时间" show_format="yyyy-MM-dd HH:mm:ss" size="small" title="任务时间" type="datetime" v-model="msgData.send_time" value_format="yyyy-MM-dd HH:mm:ss"></cdate>
-        <!-- 
+        <!--
         <cinput :required="true" title="课程名称" v-model="msgData.templateData.keyword1"></cinput>
         <cinput :required="true" title="授课教师" v-model="msgData.templateData.keyword2"></cinput>
         <cdate :required="true" placeholder="请选择时间" show_format="yyyy-MM-dd HH:mm:ss" size="small" title="上课时间" type="datetime" v-model="msgData.templateData.keyword3" value_format="yyyy-MM-dd HH:mm:ss"></cdate>
@@ -192,7 +192,7 @@
           </el-table-column>
           <el-table-column
             prop="template_name"
-            label="模板名称"> 
+            label="模板名称">
           </el-table-column>
           <el-table-column
             prop="create_user"
@@ -241,7 +241,7 @@
       </el-tabs>
     </cwindow>
     <!-- 任务列表单个编辑 -->
-    <cwindow title="任务编辑" v-model="task_edit" style="width:400px;">        
+    <cwindow title="任务编辑" v-model="task_edit" style="width:400px;">
       <!-- <cselect :custOptions="wxTemplateList" @change="mm.subscribe_value = ''" title="选择模板" v-model="msgDataEdit.template_id"></cselect>
       <cinput title="跳转地址" v-model="msgDataEdit.url"></cinput>
       <cinput title="课程名称" v-model="msgDataEdit.templateData.keyword1"></cinput>
@@ -344,7 +344,7 @@ export default {
         send_time:'',
         members:'',
         accept:''
-      },      
+      },
       msgDataEdit: {
         subscribe_value: '',
         url: '',
@@ -623,7 +623,7 @@ export default {
         })
         this.taskTable = res.rows;
         this.tempMsgModule_task.groupMsgList.total = res.total;
-      }) 
+      })
     },
     groupMsgTabChange(itemTab) {
       if (itemTab && itemTab.name == "groupMsgHistory") {
@@ -704,7 +704,7 @@ export default {
       //     //   return;
       //     // }
       //     if(this.msgData.template_id=='' ||
-      //       this.msgData.url=='' || 
+      //       this.msgData.url=='' ||
       //       this.msgData.send_time==''
       //     ){
       //       this.$message.error("请输入必填项");
@@ -763,7 +763,7 @@ export default {
         this.msgDataEdit.templateData = JSON.parse(res.template_data);
         this.msgDataEdit.template_id = res.template_id;
         this.msgDataEdit.template_name = res.template_name;
-        
+
         for(let i=0;i<this.wxTemplateList.length;i++){
           if(this.wxTemplateList[i].value==res.template_id){
             this.entryTemp = this.wxTemplateList[i].entry;
@@ -792,7 +792,7 @@ export default {
         })
         this.taskTable = res.rows;
         this.tempMsgModule_task.groupMsgList.total = res.total;
-      }) 
+      })
     },
     getHistory(){
       cont.histories({"pagenum":this.tempMsgModule.pagenum,"pagesize":this.tempMsgModule.pagesize}).then(res => {
@@ -804,7 +804,7 @@ export default {
       sys.deleteTask({"job_class_name":row.job_class_name,"job_group_name":row.job_group_name}).then(res => {
         this.$message('删除成功');
         this.getTaskList();
-      }) 
+      })
     },
     openUsers(){
       this.aite = true;

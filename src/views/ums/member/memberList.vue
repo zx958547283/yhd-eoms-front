@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <cqueryview :pk="params[0]" @query="doQuery"></cqueryview>
+    <cqueryview :pk="params[0]" @query="doQuery" :querydivhegiht='105'></cqueryview>
     <el-container>
       <el-aside v-show="false" width="200px">
         <el-tree :data="companyTree" :props="{label:'name',children:'listChild'}" @node-click="doQuery" class="menulist" default-expand-all highlight-current node-key="id" ref="refCompany"></el-tree>
@@ -31,6 +31,7 @@
         <cinput :required="true" title="姓名" v-model="mm.real_name"></cinput>
         <cinput :required="true" title="手机" v-model="mm.phone"></cinput>
         <cdept :required="true" title="归属门店" v-model="mm.depart_id"></cdept>
+        <cselect  pk="deptEmployee" title="维护专员" :refDeptId ="mm.depart_id" v-model="mm.create_user"></cselect>
         <cselect  pk="professionList" title="健康专员" :refDeptId ="mm.depart_id" v-model="mm.from_employee"></cselect>
         <cselect :multi="true" pk="professionList" title="服务专员" :refDeptId ="mm.depart_id" v-model="mm.service_admin_id"></cselect>
         <cinput title="身份证号码" v-model="mm.id_card"></cinput>

@@ -1,7 +1,7 @@
 <template>
   <div :class="classObj" class="app-wrapper">
 
-    <div :class="classObj.hideSidebar?'qb_logo_close':'qb_logo'"></div>
+    <div :class="classObj.hideSidebar?'yhd_logo_close':'yhd_logo'"></div>
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
       <div :class="['fixed-header',this.sidebar.opened?'':'fixed-header_close']">
@@ -66,22 +66,24 @@ export default {
   transition: all 0.3s;
 }
 
-.qb_logo{
+.yhd_logo{
   width: 180px;
   height:50px;
   background-color: #1f2d3d !important;
-  // background:url("../../../static/images/qb.png")no-repeat;
-  // background-size: 85%;
+  background:url("../../../static/images/yhd_logo.svg")no-repeat;
+  background-size: 75%;
+  background-position-x: 15px;
   position: fixed;
   top:0;
   left:0;
 }
-.qb_logo_close{
+.yhd_logo_close{
   width: 36px;
   height:50px;
   background-color: #1f2d3d !important;
- // background:url("../../../static/images/qb.png")no-repeat scroll 0px 15px;
- // background-size: 250%;
+  background:url("../../../static/images/yhd.svg")no-repeat scroll 0px 15px;
+  background-size: 70%;
+  background-position-x: 8px;
   position: fixed;
   top:0;
   left:0;

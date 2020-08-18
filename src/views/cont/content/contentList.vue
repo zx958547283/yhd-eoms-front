@@ -45,7 +45,18 @@
             <csupload :length="2" title="列表封面" v-model="mm.cover_path"></csupload>
           </el-tab-pane>
           <el-tab-pane label="内容" name="second">
-            <tinymce :height="300" :toolbar="toolbar" :width="825" v-model="mm.content"></tinymce>
+
+            <cselect pk="can" title="是否是链接" v-model="mm.is_link"></cselect>
+
+            <cinput v-if="mm.is_link === '1'"  :required="true" title="链接地址" :length = "2" placeholder="请输入链接地址" v-model="mm.url"></cinput>
+
+
+            <div style="padding-top: 50px">
+              <tinymce v-if="mm.is_link === '0'" :height="300" :toolbar="toolbar" :width="825" v-model="mm.content"></tinymce>
+
+            </div>
+
+
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -98,8 +109,6 @@
       this.params = u.getpageparmas(this);
       //初始化查询，默认第一页
       this.dataLoad(1);
-
-      console.log("=======", this.mm)
 
     },
     filters: {},

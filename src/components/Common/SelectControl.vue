@@ -18,7 +18,7 @@ import u from "../../utils/utility";
 import member from "../../api/member";
 export default {
   props: {
-    value: [String, Number],
+    value: [String, Number,Object],
     title: [String],
     size: {
       type: String,
@@ -61,7 +61,7 @@ export default {
       currentvalue: this.value,
       itemlists: [],
       otherLists: [],
-      querylist: []
+      querylist: [],
     };
   },
   watch: {
@@ -69,6 +69,7 @@ export default {
       if (val === this.currentvalue) {
         return;
       }
+	  console.log(val,'value......')
       this.currentvalue = val;
     },
     refSelect: function (val, oldValue) {
@@ -312,6 +313,25 @@ export default {
             { value: "1", text: "是" },
             { value: "0", text: "否" }
           ];
+        } else if (this.pk === "period") {
+          this.itemlists = [
+            { value: "1", text: "上午" },
+            { value: "2", text: "下午" }
+          ];
+        }  else if (this.pk === "book") {
+          this.itemlists = [
+            { value: "1", text: "生效" },
+            { value: "2", text: "作废" }
+          ];
+        } else if (this.pk === "bookingStatus") {
+          //1、待接单；2、已接单；3、完成；4、员工取消；5、客户取消；
+          this.itemlists = [
+            { value: "1", text: "待接单" },
+            { value: "2", text: "已接单" },
+            { value: "3", text: "完成" },
+            { value: "4", text: "员工取消" },
+            { value: "5", text: "客户取消" }
+          ];
         } else if (this.pk === "professionList") {
           // 获取所选部门的服务专员和健康专员
           if (this.refDeptId){
@@ -323,20 +343,60 @@ export default {
               // 健康专员
               this.itemlists = []
               healthers.forEach(healther =>{
+                if (this.currentvalue !== healther.id){
+                  this.currentvalue = ''
+                }
                 let employee = { value: healther.id, text: healther.username}
                 this.itemlists.push(employee)
               });
+              if (this.itemlists.length === 0){
+                this.currentvalue = ''
+              }
+
               // 服务专员
               this.otherLists = []
               servers.forEach(server =>{
+                if (this.currentvalue !== server.id){
+                  this.currentvalue = ''
+                }
                 let employee = { value: server.id, text: server.username}
                 this.otherLists.push(employee)
               });
             });
 
+            if (this.otherLists.length === 0){
+              this.currentvalue = ''
+            }
+
           }
 
         }
+        else if (this.pk === "deptEmployee") {
+          // 获取所选部门的员工信息
+          if (this.refDeptId){
+            member.getDeptEmployee(this.refDeptId).then(res => {
+              this.itemlists = []
+              res.forEach(emp =>{
+                if (this.currentvalue !== emp.id){
+                  this.currentvalue = ''
+                }
+                let employee = { value: emp.id, text: emp.username}
+                this.itemlists.push(employee)
+              });
+
+              if (this.itemlists.length === 0){
+                this.currentvalue = ''
+              }
+            });
+          }
+        }
+		else if(this.pk ==='position'){
+		     this.itemlists = [
+		       { value: '01', text: "店员" },
+		       { value: '00', text: "店长" },
+		       { value: '10', text: "经销商" },
+		     ];
+		    }
         else {
           u.querydatacache(
             this,

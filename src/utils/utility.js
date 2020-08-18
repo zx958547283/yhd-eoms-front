@@ -390,7 +390,7 @@ export default {
         return true;
     },
     querypagesize: function() {
-        return 20;
+        return 10;
     },
     pagebatchoperate(that, delRequest) {
         if (that.selectrows.length === 0) {

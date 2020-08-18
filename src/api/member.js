@@ -52,6 +52,9 @@ export default {
     getAllEmployee(id) {
         return request.post("/ums/getAllEmployee", { pk: id });
     },
+    getDeptEmployee(id) {
+      return request.post("/madyApp/getDeptEmployee", { chooseDept_id: id });
+    },
     getHealthData(id) {
         return request.post("/ums/getHealthData", { member_id: id });
     },

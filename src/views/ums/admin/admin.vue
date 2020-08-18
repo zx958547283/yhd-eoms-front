@@ -34,8 +34,8 @@
         <cinput title="手机号码" v-model="mm.mobile"></cinput>
         <cselect pk="YN" title="管理员" v-model="mm.isadmin"></cselect>
         <cinput inType="password" title="密码" v-model="mm.password"></cinput>
-        <cselect pk="can" title="理疗师" v-model="mm.isdoctor"></cselect>
-        <cselect pk="can" title="经销商" v-model="mm.is_dealer"></cselect>
+        <cselect pk="position" title="所属职位" v-model="myPosition" @input='selPosition'></cselect>
+        <!-- <cselect pk="can" title="经销商" v-model="mm.is_dealer"></cselect> -->
         <cselect pk="can"  title="健康专员" v-model="mm.is_healther"></cselect>
         <cselect pk="can" title="服务专员" v-model="mm.is_server"></cselect>
         <cinput :length="2" title="备注" v-model="mm.note"></cinput>
@@ -111,7 +111,8 @@ export default {
           text: '全部',
           value: '4'
         }
-      ]
+      ],
+	  myPosition:''
     }
   },
   mounted() {
@@ -157,11 +158,22 @@ export default {
     showAdd() {
       this.mm = {};
       this.mm.isadmin = "N"; ``
+	  this.myPosition = ''
       this.winvisible = true;
     },
-    showEdit(row) {
+    async showEdit(row) {
       let that = this;
-      u.openeditmodel(this, ums.getAdmin, row);
+      const uu = await u.openeditmodel(this, ums.getAdmin, row);
+	  this.mm.is_dealer = uu.is_dealer;
+	  this.mm.isdoctor = uu.isdoctor;
+	  
+	  if(this.mm.is_dealer == 0&&this.mm.isdoctor == 1){
+			this.myPosition = '01'
+	  }else if(this.mm.is_dealer == 0&&this.mm.isdoctor == 0){
+			this.myPosition = '00'
+	  }else{
+			this.myPosition = '10'
+	  }
     },
     doDelete() {
       u.deleteoperate(this, ums.delAdmin);
@@ -255,7 +267,22 @@ export default {
       }).catch(err => {
       });
       console.log(dataAuth);
-    }
+    },
+	// 选择职位
+	selPosition(val){
+		console.log(this.mm.isdoctor)
+		console.log(val,'所属职位')
+		if(val=='01'){
+			this.mm.is_dealer = 0;
+			this.mm.isdoctor = 1;
+		}else if(val=='00'){
+			this.mm.is_dealer = 0;
+			this.mm.isdoctor = 0;
+		}else{
+			this.mm.is_dealer = 1;
+			this.mm.isdoctor = 0;
+		}
+	}
   }
 }
 </script>

@@ -69,7 +69,11 @@ export default {
     exp: {
       type: Boolean,
       default: true
-    }
+    },
+	querydivhegiht:{
+		type:Number,
+		default:35
+	}
   },
   data() {
     return {
@@ -81,7 +85,7 @@ export default {
       consultlists: [],
       fixlists: [],
       tabledata: [],
-      querydivhegiht: 35,
+      // querydivhegiht: 35,
       linktext: "展开",
       linkclass: "el-icon-arrow-down el-icon--right"
     };

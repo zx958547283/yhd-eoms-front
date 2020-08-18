@@ -1,8 +1,8 @@
 "use strict";
 module.exports = {
-  NODE_ENV: '"test"',
-  BASE_API: '"https://jk.laohaowaner.com/yhd_eoms_pre"',
-  IMG_UPLOAD_ACTION: '"https://jk.laohaowaner.com/yhd_eoms_pre/common/uploadFile"',
+  NODE_ENV: '"production"',
+  BASE_API: '"https://yhd.9073expo.com/yhd.eoms"',
+  IMG_UPLOAD_ACTION: '"https://yhd.9073expo.com/yhd.eoms/common/uploadFile"',
   EXCEL_UPLOAD_ACTION: '""',
   QA_TYPE_PATH: '"qaType/"',
   LEVEL_ICON_PATH: '"levelicon/"',

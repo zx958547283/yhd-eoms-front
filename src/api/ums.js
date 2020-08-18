@@ -117,5 +117,23 @@ export default {
   },
   saveMemberExchageJxs(params) {
     return request.post("/ums/updateEmployeeFlg", params);
+  },
+  getDeptBook(params) {
+    return request.post("/ums/getDeptBook", { pk: params });
+  },
+  saveDeptBook(params) {
+    return request.post("/ums/saveDeptBook", params);
+  },
+  deleteDeptBook(params) {
+    return request.post("/ums/deleteDeptBook", { pk: params });
+  },
+  getMemberBooking(params) {
+    return request.post("/ums/getMemberBooking", { pk: params });
+  },
+  saveMemberBooking(params) {
+    return request.post("/ums/saveMemberBooking", params);
+  },
+  deleteMemberBooking(params) {
+    return request.post("/ums/deleteMemberBooking", { pk: params });
   }
 };
